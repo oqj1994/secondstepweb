@@ -2,8 +2,8 @@ package render
 
 import (
 	"errors"
-	"github.com/lemoTea/secondstepweb/pkg/config"
-	"github.com/lemoTea/secondstepweb/pkg/model"
+	"github.com/vitaLemoTea/secondstepweb/pkg/config"
+	"github.com/vitaLemoTea/secondstepweb/pkg/model"
 	"html/template"
 	"net/http"
 	"path/filepath"

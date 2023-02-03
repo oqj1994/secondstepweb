@@ -3,9 +3,9 @@ package handlers
 import (
 	"fmt"
 	"github.com/justinas/nosurf"
-	"github.com/lemoTea/secondstepweb/pkg/config"
-	"github.com/lemoTea/secondstepweb/pkg/model"
-	"github.com/lemoTea/secondstepweb/pkg/render"
+	"github.com/vitaLemoTea/secondstepweb/pkg/config"
+	"github.com/vitaLemoTea/secondstepweb/pkg/model"
+	"github.com/vitaLemoTea/secondstepweb/pkg/render"
 	"net/http"
 )
 

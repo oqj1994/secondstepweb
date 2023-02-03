@@ -1,4 +1,4 @@
-module github.com/lemoTea/secondstepweb
+module github.com/vitaLemoTea/secondstepweb
 
 go 1.19
 
