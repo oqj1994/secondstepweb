@@ -1,0 +1,18 @@
+{{template "base" . }}}
+{{define "content"}}
+    <div class="container">
+        <div class="row bg-primary-subtle">
+            <div class="column">
+                <p>Home</p>
+                <p>About</p>
+                <p>{{index .StringMap "Greet"}}</p>
+                <p>hello，this is my question : old thing can not support our life</p>
+                {{if .CSRFToken }}
+                <p>{{.CSRFToken}}</p>
+                {{else}}
+                <p>no csrf here !</p>
+                {{end}}
+            </div>
+        </div>
+    </div>
+{{end}}
