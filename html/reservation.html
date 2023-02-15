@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css">
+    <style>
+        .myfooter{
+            margin-top: 5px;
+            background-color: #312e2e;
+            font-size: 80%;
+            padding: 20px;
+            color: #ffffff;
+        }
+        .datepicker{
+          z-index: 10000;
+        }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
+      data-bs-theme="dark"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Dota2</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Rooms
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="generals.html"
+                    >客房</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="majors-suite.html"
+                    >豪华客房</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="make-reservation.html">Booking</a>
+              </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+  
+    <div class="container">
+      <form action="" method="get">
+      <div class="form-row mt-4">
+       <div id="foo" class="row">
+          <div class="col">
+          <input type="text" name="start" class="form-control" required placeholder="到达时间">
+        </div>
+        <div class="col">
+          <input type="text" name="end" class="form-control" required placeholder="离开时间">  
+        </div>
+        </div>
+      </div>
+              <div class="row mt-4">
+              <div class="col-4"></div>
+              <div class="col">
+
+                <button class="btn btn-primary">make reservation</button>
+              </div>
+
+            </div>
+          </form>
+          <button id="test">swal</button>
+          </div>
+      
+     
+    </div>
+    <div class="row myfooter ">
+        <div class="col">left</div>
+        <div class="col">Middle</div>
+        <div class="col">Right</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/notie"></script>
+
+    <script>
+      let attention=modal()
+
+      function notify(c){
+        const {msg,msgType=4}=c
+        notie.alert({
+        type: msgType, // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+        text: msg,
+    })
+      }
+      
+
+    
+
+      function modal(){
+        let alertSuccess=function(c){
+          let {title="Registe Your account",text="hello",icon="success"}=c
+          Swal.fire({
+          icon: icon,
+          title: title,
+          text: text,
+          footer: '<a href="">Why do I have this issue?</a>'
+})
+        }
+        let toast=function(c){
+          const {title="",icon="success",position="top-end" }=c
+        const Toast=Swal.mixin({
+        toast: true,
+        position: position,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+        Toast.fire({
+        icon: icon,
+        title: title
+})
+        }
+        async function costom(c){
+          const {title="",msg="Hello"}=c;
+
+          const { value: formValues } = await Swal.fire({
+          title: title,
+          backdrop:false,
+          showCancelButton:true,
+          html:msg,
+          focusConfirm: false,
+          willOpen:()=>{
+              const elem=document.querySelector("#date-picker");
+              const newepicker = new DateRangePicker(elem, {
+                  format:"yyyy-mm-dd",
+                  position:"",
+      }); 
+          },
+          preConfirm: () => {
+            return [
+      document.getElementById('start').value,
+      document.getElementById('end').value
+    ]
+  }
+})
+
+if (formValues) {
+  Swal.fire(JSON.stringify(formValues))
+}
+        }
+
+        return {
+          success:alertSuccess,
+          toast:toast,
+          constom:costom,
+        }
+
+      }
+      
+    const elem = document.getElementById('foo');
+    const coo=document.cookie
+    const rangepicker = new DateRangePicker(elem, {
+        format:"yyyy-mm-dd"
+      }); 
+      const btn=document.querySelector("#test");
+      btn.addEventListener("click",()=>{
+        const msg=`
+        <form action="" method="get" id="date-picker">
+          
+          <div class="form-row">
+            
+            <div class="col">
+             <input type="text" name="start" id="start" class="form-control">
+            </div>   
+            <div class="col">    
+             <input type="text" name="end" id="end" class="form-control">
+         
+            </div>
+          </div>
+
+        </form>
+        `
+        attention.constom({title:"choose your date ", msg:msg})}
+        )
+    </script>
+  </body>
+</html>

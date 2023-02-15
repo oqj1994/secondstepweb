@@ -1,0 +1,60 @@
+{{template "base" . }}
+{{define "content"}}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col">
+                <img src="/statics/images/mmy.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+
+        <p>
+            《刀塔2》完整继承了原作《DotA》一百多位的英雄，并脱离了上一代作品《DOTA》所依赖的《魔兽争霸Ⅲ》引擎的多人即时对战游戏，《刀塔2》的世界由天辉和夜魇两个阵营所辖区域组成，有上、中、下三条主要的作战道路相连接，中间以河流为界。每个阵营分别由五位玩家所扮演的英雄担任守护者，他们将以守护己方远古遗迹并摧毁敌方远古遗迹为使命，通过提升等级、赚取金钱、购买装备和击杀敌方英雄等手段达成胜利。
+            [2-5]
+        </p>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <a href="#" id="search-btn" class="btn btn-success">Search</a>
+
+        </div>
+    </div>
+    </div>
+{{end}}
+
+{{define "js"}}
+
+    const btn=document.querySelector("#search-btn");
+    btn.addEventListener("click",()=>{
+    const msg=`
+    <form action="" method="get" id="date-picker">
+
+        <div class="form-row">
+
+            <div class="col">
+                <input type="text" name="start" id="start" class="form-control">
+            </div>
+            <div class="col">
+                <input type="text" name="end" id="end" class="form-control">
+
+            </div>
+        </div>
+
+    </form>
+    `
+    attention.custom({
+    title:" your date ",
+    msg:msg,
+    callback:function(value)
+    {
+    console.log(value);
+    }
+
+    })
+
+    })
+
+
+{{end}}

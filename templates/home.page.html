@@ -1,18 +1,64 @@
-{{template "base" . }}}
+{{template "base" . }}
 {{define "content"}}
-    <div class="container">
-        <div class="row bg-primary-subtle">
-            <div class="column">
-                <p>Home</p>
-                <p>About</p>
-                <p>{{index .StringMap "Greet"}}</p>
-                <p>hello，this is my question : old thing can not support our life</p>
-                {{if .CSRFToken }}
-                <p>{{.CSRFToken}}</p>
-                {{else}}
-                <p>no csrf here !</p>
-                {{end}}
+
+
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade ">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner ">
+            <div class="carousel-item active">
+                <img src="/statics/images/1.webp" class="d-block w-100" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                    <p>Defense of the Ancients</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/statics/images/2.webp" class="d-block w-100" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Queen of Painful</h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/statics/images/3.webp" class="d-block w-100" alt="..." />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Morphling</h5>
+                </div>
             </div>
         </div>
+        <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExample"
+                data-bs-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="container">
+
+        <p>
+            《刀塔2》完整继承了原作《DotA》一百多位的英雄，并脱离了上一代作品《DOTA》所依赖的《魔兽争霸Ⅲ》引擎的多人即时对战游戏，《刀塔2》的世界由天辉和夜魇两个阵营所辖区域组成，有上、中、下三条主要的作战道路相连接，中间以河流为界。每个阵营分别由五位玩家所扮演的英雄担任守护者，他们将以守护己方远古遗迹并摧毁敌方远古遗迹为使命，通过提升等级、赚取金钱、购买装备和击杀敌方英雄等手段达成胜利。
+            [2-5]
+        </p>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <a href="reservation.html" class="btn btn-success">Join Dota2 Now</a>
+
+        </div>
+    </div>
     </div>
 {{end}}

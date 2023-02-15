@@ -1,0 +1,31 @@
+{{template "base" . }}
+{{define "content"}}
+   <div class="container">
+       <div id="book-form">
+           <form action="/book" method="post">
+               <div class="form-row">
+               <div class="col">
+
+                   <input name="start" class="form-control" placeholder="start-time" required>
+               </div>
+               <div class="col">
+
+                   <input name="end" class="form-control" placeholder="end-time" required>
+               </div>
+               </div>
+               <input class="d-none" name="csrf_token" value="{{ .CSRFToken }}">
+               <button id="serach-btn">Search</button>
+           </form>
+       </div>
+   </div>
+{{end}}
+
+{{define "js"}}
+    const elem=document.querySelector("#book-form");
+    const newepicker = new DateRangePicker(elem, {
+    format:"yyyy-mm-dd",
+    position:"",
+    });
+
+
+{{end}}

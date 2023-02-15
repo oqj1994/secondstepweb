@@ -1,0 +1,28 @@
+{{template "base" . }}
+{{define "content"}}
+    <div class="container">
+        <form action="" method="post" class="needs-validation " novalidate>
+            <div class="form-group mt-5">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="email" name="phone" id="phone" class="form-control">
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+
+                    <button class="btn btn-primary">make reservation</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    </div>
+{{end}}

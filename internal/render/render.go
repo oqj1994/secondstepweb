@@ -1,9 +1,10 @@
 package render
 
 import (
+	"bytes"
 	"errors"
-	"github.com/vitaLemoTea/secondstepweb/pkg/config"
-	"github.com/vitaLemoTea/secondstepweb/pkg/model"
+	"github.com/vitaLemoTea/secondstepweb/internal/config"
+	"github.com/vitaLemoTea/secondstepweb/internal/model"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -15,7 +16,7 @@ func NewRender(config *config.Config) {
 	cf = config
 }
 
-func Render(w http.ResponseWriter, tmpl string, data *model.TemplateData) error {
+func Render(w http.ResponseWriter, tmpl string, r *http.Request, data *model.TemplateData) error {
 	var tpl *template.Template
 	if cf.UseCache {
 		_, ok := cf.TC[tmpl]
@@ -30,8 +31,14 @@ func Render(w http.ResponseWriter, tmpl string, data *model.TemplateData) error 
 		}
 		tpl = tpls[tmpl]
 	}
+	data = model.AddDefault(data, r)
+	buf := new(bytes.Buffer)
 
-	err := tpl.Execute(w, data)
+	err := tpl.Execute(buf, data)
+	if err != nil {
+		return err
+	}
+	_, err = w.Write(buf.Bytes())
 	if err != nil {
 		return err
 	}
