@@ -1,0 +1,42 @@
+{{template "base" . }}
+{{define "content" }}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="mt-5">Reservation Summary Lists</h1>
+                <table class="table table-striped">
+                    {{$data := .Data.reservation}}
+
+                    <thead>
+                    <tr>
+                        <td>属性</td>
+                        <td>Content</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{$data.FirstName }}{{$data.LastName }}</td>
+                    </tr>
+                    <tr>
+                        <td>Arrival:</td>
+                        <td>{{$data.StartDate.Format "2006-01-02"}}</td>
+                    </tr>
+                    <tr>
+                        <td>Departure:</td>
+                        <td>{{$data.EndDate.Format "2006-01-02"}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>{{$data.Email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone:</td>
+                        <td>{{$data.Phone }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{{end}}

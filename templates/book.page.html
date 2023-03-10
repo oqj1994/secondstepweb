@@ -1,31 +1,71 @@
 {{template "base" . }}
 {{define "content"}}
+    {{$data := index .Data "reservation"}}
    <div class="container">
+       <div class="row">
+           <p class="text-success fs-2">Reservation for {{$data.Room.RoomName }} Info</p>
+           <h3 class="text-info">Arrival:{{$data.StartDate.Format "2006-01-02"}} </h3>
+           <h3 class="text-info">Departure:{{$data.EndDate.Format "2006-01-02"}} </h3>
+       </div>
        <div id="book-form">
-           <form action="/book" method="post">
-               <div class="form-row">
-               <div class="col">
+           <form action="/make-reservation" method="post" class="needs-validation " novalidate>
+               <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
 
-                   <input name="start" class="form-control" placeholder="start-time" required>
+               <div class="form-group mt-5">
+                   <label for="room_id">RoomID:</label>
+                   {{with .Form.Errs.Get "Room"}}
+                       <label for="room_id" class="  text-danger">{{ . }}</label>
+                   {{end}}
+                   <input type="hidden" name="room_id" id="room_id" class="form-control {{with .Form.Errs.Get "room_id"}}is-invalid{{end}}"
+                          value="{{$data.RoomID}}">
                </div>
-               <div class="col">
 
-                   <input name="end" class="form-control" placeholder="end-time" required>
+               <div class="form-group ">
+                   <label for="first_name" class=" ">FirstName:</label>
+                   {{with .Form.Errs.Get "first_name"}}
+                   <label for="first_name" class="  text-danger">{{ . }}</label>
+                   {{end}}
+                   <input type="text" name="first_name" id="first_name" class="form-control {{with .Form.Errs.Get "first_name"}}is-invalid{{end}}"
+                    value="{{$data.FirstName}}">
                </div>
+               <div class="form-group">
+                   <label for="last_name">LastName:</label>
+                   {{with .Form.Errs.Get "last_name"}}
+                       <label for="first_name" class="  text-danger">{{ . }}</label>
+                   {{end}}
+                   <input type="text" name="last_name" id="last_name" class="form-control {{with .Form.Errs.Get "last_name"}}is-invalid{{end}}" value="{{$data.LastName}}">
                </div>
-               <input class="d-none" name="csrf_token" value="{{ .CSRFToken }}">
-               <button id="serach-btn">Search</button>
+               <div class="form-group">
+                   <label for="phone">Phone:</label>
+                   {{with .Form.Errs.Get "phone"}}
+                       <label for="first_name" class="  text-danger">{{ . }}</label>
+                   {{end}}
+                   <input type="text" name="phone" id="phone" class="form-control {{with .Form.Errs.Get "phone"}}is-invalid{{end}}" value="{{$data.Phone}}">
+               </div>
+               <div class="form-group ">
+                   <label for="email">Email:</label>
+                   {{with .Form.Errs.Get "email"}}
+                       <label for="first_name" class="text-danger">{{ . }}</label>
+                   {{end}}
+                   <input type="email" name="email" id="email" class="form-control {{with .Form.Errs.Get "email"}}is-invalid{{end}}" value="{{$data.Email}}">
+               </div>
+
+
+
+               <div class="row mt-4">
+                   <div class="col">
+
+                       <button class="btn btn-primary">make reservation</button>
+                   </div>
+
+               </div>
            </form>
        </div>
    </div>
 {{end}}
 
 {{define "js"}}
-    const elem=document.querySelector("#book-form");
-    const newepicker = new DateRangePicker(elem, {
-    format:"yyyy-mm-dd",
-    position:"",
-    });
+
 
 
 {{end}}

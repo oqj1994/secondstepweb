@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func mymiddleware(next http.Handler) http.Handler {
+func MyMiddleWare(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ipAdrre := r.RemoteAddr
 		fmt.Println(ipAdrre)
@@ -15,7 +15,7 @@ func mymiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func csrf(next http.Handler) http.Handler {
+func Csrf(next http.Handler) http.Handler {
 	n := nosurf.New(next)
 	n.SetBaseCookie(http.Cookie{
 		HttpOnly: true,
@@ -26,6 +26,6 @@ func csrf(next http.Handler) http.Handler {
 	return n
 }
 
-func sessionLoad(next http.Handler) http.Handler {
+func SessionLoad(next http.Handler) http.Handler {
 	return appConfig.Session.LoadAndSave(next)
 }

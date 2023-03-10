@@ -1,18 +1,21 @@
 {{template "base" . }}
 {{define "content"}}
-    <div class="container">
-        <form action="" method="post" class="needs-validation " novalidate>
-            <div class="form-group mt-5">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" class="form-control">
-            </div>
+    <div class="container mt-5 mb-5">
+        <form action="/searchAvailability"  method="post" class="needs-validation " novalidate>
+            <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+            <div class="row" id="date-picker">
+                <div class="col">
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" class="form-control">
+                <label for="start_date">StartDate:</label>
+                <input type="text" name="start_date" id="start_date" class="form-control">
             </div>
+                </div>
+                <div class="col">
             <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="email" name="phone" id="phone" class="form-control">
+                <label for="end_date">EndDate:</label>
+                <input type="email" name="end_date" id="end_date" class="form-control">
+            </div>
+                </div>
             </div>
             <div class="row mt-4">
                 <div class="col">
@@ -25,4 +28,17 @@
     </div>
 
     </div>
+{{end}}
+
+{{define "js"}}
+        const today=new Date();
+        const element=document.querySelector("#date-picker");
+        const datePicker=new DateRangePicker(element, {
+            format:"yyyy-mm-dd",
+            position:"",
+            minDate:today,
+        })
+
+
+
 {{end}}

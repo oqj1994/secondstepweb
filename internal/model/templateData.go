@@ -1,8 +1,7 @@
 package model
 
 import (
-	"github.com/justinas/nosurf"
-	"net/http"
+	"github.com/vitaLemoTea/secondstepweb/internal/form"
 )
 
 type TemplateData struct {
@@ -14,9 +13,5 @@ type TemplateData struct {
 	Flash     string
 	Warning   string
 	Error     string
-}
-
-func AddDefault(data *TemplateData, r *http.Request) *TemplateData {
-	data.CSRFToken = nosurf.Token(r)
-	return data
+	Form      *form.Form
 }

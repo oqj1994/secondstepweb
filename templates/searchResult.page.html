@@ -1,0 +1,16 @@
+{{template "base" . }}
+{{define "content"}}
+    <div class="container vh-100 m-4">
+        <h3>Current availability Room List</h3>
+        {{$rooms := index .Data "rooms"}}
+        <ul>
+        {{range $rooms}}
+        <div class="row">
+           <li> <a href="/make-reservation/{{.ID}}">{{.RoomName}}</a></li>
+        </div>
+        {{end}}
+        </ul>
+    </div>
+
+
+{{end}}

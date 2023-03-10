@@ -3,6 +3,8 @@ package render
 import (
 	"bytes"
 	"errors"
+	"fmt"
+	"github.com/justinas/nosurf"
 	"github.com/vitaLemoTea/secondstepweb/internal/config"
 	"github.com/vitaLemoTea/secondstepweb/internal/model"
 	"html/template"
@@ -11,12 +13,22 @@ import (
 )
 
 var cf *config.Config
+var pathToTemplate = "./templates"
+var functions template.FuncMap
 
-func NewRender(config *config.Config) {
+func NewRenderer(config *config.Config) {
 	cf = config
 }
 
-func Render(w http.ResponseWriter, tmpl string, r *http.Request, data *model.TemplateData) error {
+func AddDefault(data *model.TemplateData, r *http.Request) *model.TemplateData {
+	data.Flash = cf.Session.PopString(r.Context(), "flash")
+	data.Warning = cf.Session.PopString(r.Context(), "warning")
+	data.Error = cf.Session.PopString(r.Context(), "error")
+	data.CSRFToken = nosurf.Token(r)
+	return data
+}
+
+func Template(w http.ResponseWriter, tmpl string, r *http.Request, data *model.TemplateData) error {
 	var tpl *template.Template
 	if cf.UseCache {
 		_, ok := cf.TC[tmpl]
@@ -25,13 +37,13 @@ func Render(w http.ResponseWriter, tmpl string, r *http.Request, data *model.Tem
 		}
 		tpl = cf.TC[tmpl]
 	} else {
-		tpls, err := GetTc()
+		tpls, err := GetTemplateCache()
 		if err != nil {
 			return err
 		}
 		tpl = tpls[tmpl]
 	}
-	data = model.AddDefault(data, r)
+	data = AddDefault(data, r)
 	buf := new(bytes.Buffer)
 
 	err := tpl.Execute(buf, data)
@@ -45,16 +57,16 @@ func Render(w http.ResponseWriter, tmpl string, r *http.Request, data *model.Tem
 	return nil
 }
 
-func GetTc() (map[string]*template.Template, error) {
+func GetTemplateCache() (map[string]*template.Template, error) {
 	tc := make(map[string]*template.Template)
-	ps, err := filepath.Glob("./templates/*.page.html")
+	ps, err := filepath.Glob(fmt.Sprintf("%s/*.page.html", pathToTemplate))
 	if err != nil {
 		return tc, err
 	}
 	for _, p := range ps {
 		name := filepath.Base(p)
-		tpl, _ := template.New(name).ParseFiles(p)
-		ls, err := filepath.Glob("./templates/*.layout.html")
+		tpl, _ := template.New(name).Funcs(functions).ParseFiles(p)
+		ls, err := filepath.Glob(fmt.Sprintf("%s/*.layout.html", pathToTemplate))
 		if err != nil {
 			return tc, err
 		}

@@ -1,6 +1,6 @@
 {{template "base" . }}
 {{define "content"}}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-4"></div>
             <div class="col">
@@ -27,34 +27,79 @@
 {{define "js"}}
 
     const btn=document.querySelector("#search-btn");
-    btn.addEventListener("click",()=>{
-    const msg=`
-    <form action="" method="get" id="date-picker">
+    btn.addEventListener("click",()=> {
+        const msg = `
+        <div class="container">
+            <div class="row">
 
-        <div class="form-row">
+    <form action="" method="" id="date-picker">
+        <div class="row">
 
             <div class="col">
-                <input type="text" name="start" id="start" class="form-control">
+                <input type="text" name="start_date" id="start" class="form-control">
             </div>
             <div class="col">
-                <input type="text" name="end" id="end" class="form-control">
+                <input type="text" name="end_date" id="end" class="form-control">
 
             </div>
+
         </div>
-
     </form>
+        </div>
+</div>
     `
+
+        attention.custom({
+            title: "chose your date ",
+            msg: msg,
+            willOpen:()=>{
+                    const elem=document.querySelector("#date-picker");
+                    const newepicker = new DateRangePicker(elem, {
+                    format:"yyyy-mm-dd",
+                     position:"",
+                    minDate:new Date(),
+
+                    })
+            },
+            callback:(value)=> {
+
+    let form = document.getElementById("date-picker");
+    let formDate = new FormData(form)
+    formDate.append("csrf_token", "{{.CSRFToken}}");
+    formDate.append("room_id", 2);
+    let url="/search"
+    fetch(url, {
+    method: "post",
+    body: formDate,
+    })
+    .then(response => response.json())
+    .then(res => {
+    if (res.ok) {
+    let l=`<a href="/bookRoom?id=${res.roomID}&std=${res.startDate}&ed=${res.endDate}">Book Now</a> `;
     attention.custom({
-    title:" your date ",
-    msg:msg,
-    callback:function(value)
-    {
-    console.log(value);
+    icon:"success",
+    msg:l,
+    showConfirmButton: false,
+    });
+    }else{
+    attention.custom({
+    msg:res.message,
+    icon:"error",
+    showConfirmButton: false,
+    });
     }
 
+    }).catch(e=>{
+    console.log(e)
     })
 
     })
+            ,
+
+        })
+    })
+
+
 
 
 {{end}}

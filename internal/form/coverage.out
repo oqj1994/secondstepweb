@@ -1,0 +1,13 @@
+mode: set
+github.com/vitaLemoTea/secondstepweb/internal/form/error.go:5.22,7.2 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/error.go:9.40,11.2 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/error.go:13.42,15.9 2 1
+github.com/vitaLemoTea/secondstepweb/internal/form/error.go:18.2,18.16 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/error.go:15.9,17.3 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:14.47,15.31 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:15.31,18.33 2 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:18.33,20.4 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:24.30,29.2 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:31.29,33.2 1 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:35.41,37.33 2 1
+github.com/vitaLemoTea/secondstepweb/internal/form/form.go:37.33,39.3 1 1

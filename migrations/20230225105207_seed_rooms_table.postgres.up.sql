@@ -1,0 +1,1 @@
+insert into rooms (room_name,created_at,updated_at) values ('marjor',now(),now()),('general',now(),now());

@@ -29,12 +29,12 @@
     {{end}}
     <title>Document</title>
 </head>
-<body>
+<body class="">
 <nav
         class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
         data-bs-theme="dark"
 >
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <a class="navbar-brand" href="#">Dota2</a>
         <button
                 class="navbar-toggler"
@@ -79,11 +79,9 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
+                    <a class="nav-link" href="/SearchRooms">Search</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/book">Booking</a>
-                </li>
+
             </ul>
             <form class="d-flex" role="search">
                 <input
@@ -102,7 +100,7 @@
 {{block "content" .}}
 {{end}}
 
-<div class="row myfooter ">
+<div class="row myfooter m-2 ">
     <div class="col">left</div>
     <div class="col">Middle</div>
     <div class="col">Right</div>
@@ -111,94 +109,10 @@
 <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/notie"></script>
+<script src="/statics/js/main.js"></script>
 
 <script>
-    let attention=modal();
 
-    function notify(c){
-        const {msg,msgType=4}=c
-        notie.alert({
-            type: msgType,
-            text: msg,
-        })
-    }
-
-
-
-
-    function modal(){
-        let alertSuccess=function(c){
-            let {title="Registe Your account",text="hello",icon="success"}=c
-            Swal.fire({
-                icon: icon,
-                title: title,
-                text: text,
-                footer: '<a href="">Why do I have this issue?</a>'
-            })
-        }
-        let toast=function(c){
-            const {title="",icon="success",position="top-end" }=c
-            const Toast=Swal.mixin({
-                toast: true,
-                position: position,
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                icon: icon,
-                title: title
-            })
-        }
-        async function custom(c){
-            const {title="",msg="Hello"}=c;
-
-            const result = await Swal.fire({
-                title: title,
-                backdrop:false,
-                showCancelButton:true,
-                html:msg,
-                focusConfirm: false,
-                willOpen:()=>{
-                    if (c.willOpen !== undefined){
-                        c.willOpen()
-                    }
-                },
-                didOpen:()=>{
-                    if (c.didOpen !== undefined){
-                        c.didOpen();
-                    }
-                },
-                preConfirm: () => {
-                    return [
-                        document.getElementById('start').value,
-                        document.getElementById('end').value
-                    ]
-                }
-            })
-            console.log(c)
-            if (result) {
-                if (result.dismiss !== Swal.DismissReason.cancel){
-                    if (result.value !== ""){
-                        if (c.callback !== undefined){
-                            c.callback(result.value)
-                        }
-                    }
-                }
-            }
-        }
-
-        return {
-            success:alertSuccess,
-            toast:toast,
-            custom:custom,
-        }
-
-    }
     {{block "js" .}}
     {{end}}
 </script>

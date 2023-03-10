@@ -28,21 +28,26 @@
     const btn=document.querySelector("#search-btn");
     btn.addEventListener("click",()=>{
     const msg=`
-    <form action="" method="get" id="date-picker">
+        <div class="container">
+             <div class="row">
 
-        <div class="form-row">
+        <form action="" method="" id="date-picker">
+            <div class="row">
 
-            <div class="col">
-                <input type="text" name="start" id="start" class="form-control">
-            </div>
-            <div class="col">
-                <input type="text" name="end" id="end" class="form-control">
+                <div class="col">
+                    <input type="text" name="start_date" id="start" class="form-control">
+                </div>
+                <div class="col">
+                    <input type="text" name="end_date" id="end" class="form-control">
 
-            </div>
+                </div>
+
+             </div>
+        </form>
+    </div>
         </div>
-
-    </form>
     `
+
     attention.custom({
     title:" your date ",
     msg:msg,
@@ -51,22 +56,41 @@
     const newepicker = new DateRangePicker(elem, {
     format:"yyyy-mm-dd",
     position:"",
+    minDate:new Date(),
     });
     },
-    callback:function(value)
-    {
-        let form=document.getElementById("date-picker");
-        let formDate=new FormData(form)
-        formDate.append("csrf_token","{{.CSRFToken}}");
-        fetch("/search",{
-            method:"post",
-            body:formDate,
-        }).then(response=>response.json()).then(json=>{
-            if (json.ok){
-                console.log(json.message)
-            }
-        })
-        }
+    callback:(value)=>{
+
+    let form = document.getElementById("date-picker");
+    let formDate = new FormData(form)
+    formDate.append("csrf_token", "{{.CSRFToken}}");
+    formDate.append("room_id", 1);
+    let url="/search"
+    fetch(url, {
+    method: "post",
+    body: formDate,
+    })
+    .then(response => response.json())
+    .then(res => {
+    if (res.ok) {
+    let l=`<a href="/bookRoom?id=${res.roomID}&std=${res.startDate}&ed=${res.endDate}">Book Now</a> `;
+    attention.custom({
+    icon:"success",
+    msg:l,
+    showConfirmButton: false,
+    });
+    }else{
+    attention.custom({
+    msg:res.message,
+    icon:"error",
+    showConfirmButton: false,
+    });
+    }
+
+    }).catch(e=>{
+    console.log(e)
+    })
+        },
 
     })
 })
